@@ -1,5 +1,6 @@
 <template>
   <q-page class="flex flex-center">
+    Transactions
   </q-page>
 </template>
 
@@ -8,6 +9,6 @@
 
 <script>
 export default {
-  name: 'PageIndex',
+  name: 'PageTransactions',
 };
 </script>
