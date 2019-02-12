@@ -1,12 +1,55 @@
 <template>
   <q-page class="grid">
 
-    <div class="status-today">Today</div>
-    <div class="status-month">Month</div>
-    <div class="status-remaining">Remaining</div>
+    <div class="status-today">
+      <q-card color="light-blue-9">
+        <q-card-title>
+            <p>Spent Today</p>
+             <q-card-separator />
+
+            <span slot="subtitle">Activity on February 12, 2019</span>
+        </q-card-title>
+         <q-card-separator />
+        <q-card-main>
+         <p>$0.00</p>
+         <span>That's the same as yesterday</span>
+        </q-card-main>
+      </q-card>
+    </div>
+    <div class="status-month">
+      <q-card color="light-blue-9">
+        <q-card-title>
+            <p>Spent this Month</p>
+             <q-card-separator />
+
+            <span slot="subtitle">Activity in February 2019</span>
+        </q-card-title>
+         <q-card-separator />
+        <q-card-main>
+         <p>$55.00</p>
+         <span>That's in budget boundries</span>
+        </q-card-main>
+      </q-card>
+    </div>
+    <div class="status-remaining">
+      <q-card color="light-blue-9">
+        <q-card-title>
+            <p>Remaining Budget</p>
+             <q-card-separator />
+
+            <span slot="subtitle">For February, 2019</span>
+        </q-card-title>
+         <q-card-separator />
+        <q-card-main>
+         <p>-$30.00</p>
+         <span>You've exceeded 4 budgets this month</span>
+        </q-card-main>
+      </q-card>
+    </div>
 
     <div class="add-transaction">
-      <q-btn color="secondary" label="Add Transaction" />
+      <q-btn color="secondary" style="width:100%; height: 100%; margin-top: 0;"
+       size="sm" label="Add Transaction" />
     </div>
 
     <div class="todo-payments">Todo</div>
@@ -52,12 +95,12 @@
   box-sizing: border-box;
 }
 
-.grid div{
-  background-color: paleturquoise;
+.grid>div{
+  /* background-color: paleturquoise; */
+  border: 1px solid black;
   box-sizing: border-box;
 
   text-align: center;
-  padding-top: 10px;
 }
 </style>
 
