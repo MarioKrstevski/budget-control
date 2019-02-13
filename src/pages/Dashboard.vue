@@ -2,49 +2,46 @@
   <q-page class="grid">
 
     <div class="status-today">
-      <q-card color="light-blue-9">
-        <q-card-title>
-            <p>Spent Today</p>
-             <q-card-separator />
-
-            <span slot="subtitle">Activity on February 12, 2019</span>
+      <q-card inline class="q-ma-sm">
+        <q-card-title >
+          Spent Today
+          <span slot="subtitle">Activity on February 13, 2019</span>
         </q-card-title>
-         <q-card-separator />
         <q-card-main>
-         <p>$0.00</p>
-         <span>That's the same as yesterday</span>
+            <div>
+            <p>$55.00</p>
+            <p>You haven't spend too much today</p>
+            </div>
         </q-card-main>
-      </q-card>
+       </q-card>
     </div>
     <div class="status-month">
-      <q-card color="light-blue-9">
+      <q-card inline class="q-ma-sm">
         <q-card-title>
-            <p>Spent this Month</p>
-             <q-card-separator />
-
-            <span slot="subtitle">Activity in February 2019</span>
+          Spent this Month
+          <span slot="subtitle">Activity on February 2019</span>
         </q-card-title>
-         <q-card-separator />
         <q-card-main>
-         <p>$55.00</p>
-         <span>That's in budget boundries</span>
+            <div>
+            <p >$1588.00</p>
+            <p>This is within budget boundries</p>
+            </div>
         </q-card-main>
-      </q-card>
+       </q-card>
     </div>
     <div class="status-remaining">
-      <q-card color="light-blue-9">
+      <q-card inline class="q-ma-sm">
         <q-card-title>
-            <p>Remaining Budget</p>
-             <q-card-separator />
-
-            <span slot="subtitle">For February, 2019</span>
+          Remaining Budget
+          <span slot="subtitle">Activity on February 2019</span>
         </q-card-title>
-         <q-card-separator />
         <q-card-main>
-         <p>-$30.00</p>
-         <span>You've exceeded 4 budgets this month</span>
+            <div>
+            <p>-$1588.00</p>
+            <p>You have exceeded 4 budgets this month</p>
+            </div>
         </q-card-main>
-      </q-card>
+       </q-card>
     </div>
 
     <div class="add-transaction">
@@ -52,7 +49,77 @@
        size="sm" label="Add Transaction" />
     </div>
 
-    <div class="todo-payments">Todo</div>
+    <div class="todo-payments">
+        <q-collapsible group="todo" label="To-Do's">
+        <div>
+          <q-list>
+            <q-item>
+              <q-item-side>
+                <q-checkbox v-model="selection" val="one" color="secondary"  />
+              </q-item-side>
+              <q-item-main label="Internet $500" />
+              <q-item-side right>
+               <q-btn dense size="md" color="negative" label="Delete" />
+              </q-item-side>
+            </q-item>
+            <q-item>
+              <q-item-side>
+                <q-checkbox v-model="selection" val="two" color="secondary"  />
+              </q-item-side>
+              <q-item-main label="Water $53" />
+              <q-item-side right>
+                <q-btn dense size="md" color="negative" label="Delete" />
+              </q-item-side>
+            </q-item>
+            <q-item>
+              <q-item-side>
+                <q-checkbox v-model="selection" val="three" color="secondary"  />
+              </q-item-side>
+              <q-item-main label="Food $5500" />
+              <q-item-side right>
+                <q-btn dense size="md" color="negative" label="Delete" />
+              </q-item-side>
+            </q-item>
+            <q-item>
+              <q-item-side>
+                <q-checkbox v-model="selection" val="four" color="secondary"  />
+              </q-item-side>
+              <q-item-main label="Gym $320" />
+              <q-item-side right>
+                <q-btn dense size="md" color="negative" label="Delete" />
+              </q-item-side>
+            </q-item>
+            <q-item>
+              <q-item-side>
+                <q-checkbox v-model="selection" val="five" color="secondary"  />
+              </q-item-side>
+              <q-item-main label="Gas $125" />
+              <q-item-side right>
+                <q-btn dense size="md" color="negative" label="Delete" />
+              </q-item-side>
+            </q-item>
+            <q-item>
+              <q-item-side>
+                <q-checkbox v-model="selection" val="six" color="secondary"  />
+              </q-item-side>
+              <q-item-main label="Partying $220" />
+              <q-item-side right>
+                <q-btn dense size="md" color="negative" label="Delete" />
+              </q-item-side>
+            </q-item>
+            <q-item>
+              <q-item-side>
+                <q-checkbox v-model="selection" val="seven" color="secondary"  />
+              </q-item-side>
+              <q-item-main label="Donation $15" />
+              <q-item-side right>
+                <q-btn dense size="md" color="negative" label="Delete" />
+              </q-item-side>
+            </q-item>
+          </q-list>
+        </div>
+      </q-collapsible>
+    </div>
     <div class="line-graph">Graph</div>
 
   </q-page>
@@ -72,6 +139,7 @@
   grid-area: addnew;
 }
 .todo-payments{
+  /* overflow: hidden; */
   grid-area: todo;
 }
 .line-graph{
@@ -97,15 +165,25 @@
 
 .grid>div{
   /* background-color: paleturquoise; */
-  border: 1px solid black;
+  /* border: 1px solid black; */
   box-sizing: border-box;
 
   text-align: center;
+}
+.q-card{
+  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>
 
 <script>
 export default {
   name: 'PageDashboard',
+  data() {
+    return {
+      selection: ['one', 'two', 'three', 'four', 'five', 'six', 'seven'],
+    };
+  },
 };
 </script>
