@@ -64,6 +64,10 @@ module.exports = function (ctx) {
         'QCheckbox',
         'QTable',
         'QSelect',
+        'QProgress',
+        'QModal',
+        'QModalLayout',
+        'QInput',
         
       ],
       directives: [

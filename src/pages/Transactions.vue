@@ -22,7 +22,7 @@
   </q-page>
 </template>
 
-<style>
+<style scoped>
 .transactions {
   display: grid;
   margin-top: 20px;

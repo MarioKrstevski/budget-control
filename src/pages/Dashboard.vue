@@ -1,7 +1,7 @@
 <template>
   <q-page class="grid">
     <div class="status-today">
-      <q-card inline class="q-ma-sm">
+      <q-card inline class="q-ma-sm qcard">
         <q-card-title>
           Spent Today
           <span slot="subtitle">Activity on February 13, 2019</span>
@@ -15,7 +15,7 @@
       </q-card>
     </div>
     <div class="status-month">
-      <q-card inline class="q-ma-sm">
+      <q-card inline class="q-ma-sm qcard">
         <q-card-title>
           Spent this Month
           <span slot="subtitle">Activity on February 2019</span>
@@ -29,7 +29,7 @@
       </q-card>
     </div>
     <div class="status-remaining">
-      <q-card inline class="q-ma-sm">
+      <q-card inline class="q-ma-sm qcard">
         <q-card-title>
           Remaining Budget
           <span slot="subtitle">Activity on February 2019</span>
@@ -179,7 +179,7 @@
 
   text-align: center;
 }
-.q-card {
+.qcard {
   margin: 0;
   width: 100%;
   height: 100%;
