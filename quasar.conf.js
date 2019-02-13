@@ -63,6 +63,7 @@ module.exports = function (ctx) {
         'QCollapsible',
         'QCheckbox',
         'QTable',
+        'QSelect',
         
       ],
       directives: [

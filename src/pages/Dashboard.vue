@@ -47,7 +47,7 @@
       <q-btn
         color="secondary"
         style="width:100%; height: 100%; margin-top: 0;"
-        size="sm"
+        size="md"
         label="Add Transaction"
       />
     </div>

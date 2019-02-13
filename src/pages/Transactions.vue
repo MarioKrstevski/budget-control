@@ -1,20 +1,21 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="flex justify-center">
     <div class="transactions">
       <q-table
         :data="tableData"
         :columns="columns"
         selection="multiple"
         :selected.sync="selectedSecond"
-        row-key="name"
+        row-key="title"
         color="secondary"
         title="Transactions"
+        table-class="tabletrans"
       >text
         <template slot="top-selection" slot-scope="props">
-          <q-btn color="secondary" flat label="Action 1" class="q-mr-sm"/>
-          <q-btn color="secondary" flat label="Action 2"/>
+          <p class="table-title">Your Transactions</p>
           <div class="col"/>
-          <q-btn color="negative" flat round icon="delete" @click="deleteRow"/>
+          <q-select class="month-selection" v-model="select" :options="options" /> 
+          <q-btn color="secondary" size="md" label="Add Transaction"/>
         </template>
       </q-table>
     </div>
@@ -24,6 +25,22 @@
 <style>
 .transactions {
   display: grid;
+  margin-top: 20px;
+  width: 90%;
+  /* border: 1px solid black; */
+  height: fit-content;
+}
+.month-selection{
+  min-width: 100px;
+  width: 10vw;
+  margin-right: 30px;
+  border: 1px solid gray;
+  padding-left: 20px;
+
+}
+.table-title{
+  font-size: 32px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 </style>
 
@@ -32,65 +49,92 @@ export default {
   name: "PageTransactions",
   data() {
     return {
+      select: '1',
+      options: [
+        {
+          label: 'All',
+          value: '0'
+        },
+        {
+          label: 'January',
+          value: '1'
+        },
+        {
+          label: 'February',
+          value: '2'
+        },
+        {
+          label: 'March',
+          value: '3'
+        },
+        {
+          label: 'April',
+          value: '4'
+        },
+        {
+          label: 'May',
+          value: '5'
+        }
+      ],
       tableData: [
         {
-          title: 'Pizza',
-          date: '08.01.2019',
-          category: 'Food',
+          title: "Pizza",
+          date: "08.01.2019",
+          category: "Food",
           amount: 55
         },
         {
-          title: 'Milk',
-          date: '08.01.2019',
-          category: 'Food',
+          title: "Milk",
+          date: "08.01.2019",
+          category: "Food",
           amount: 24
         },
         {
-          title: 'Chips',
-          date: '08.01.2019',
-          category: 'Food',
+          title: "Chips",
+          date: "08.01.2019",
+          category: "Food",
           amount: 10
         },
         {
-          title: 'Burger',
-          date: '09.01.2019',
-          category: 'Food',
+          title: "Burger",
+          date: "09.01.2019",
+          category: "Food",
           amount: 85
         },
         {
-           title: 'Skopsko',
-          date: '03.01.2019',
-          category: 'Drinks',
+          title: "Skopsko",
+          date: "03.01.2019",
+          category: "Drinks",
           amount: 23
         },
         {
-           title: 'Coca Cola',
-          date: '18.01.2019',
-          category: 'Drinks',
+          title: "Coca Cola",
+          date: "18.01.2019",
+          category: "Drinks",
           amount: 523
         },
         {
-          title: 'Electricity',
-          date: '01.01.2019',
-          category: 'Bills',
+          title: "Electricity",
+          date: "01.01.2019",
+          category: "Bills",
           amount: 255
         },
         {
-          title: 'Water',
-          date: '01.01.2019',
-          category: 'Bills',
+          title: "Water",
+          date: "01.01.2019",
+          category: "Bills",
           amount: 155
         },
         {
-         title: 'Internet',
-          date: '01.01.2019',
-          category: 'Bills',
+          title: "Internet",
+          date: "01.01.2019",
+          category: "Bills",
           amount: 35
         },
         {
-          title: 'Gym',
-          date: '04.01.2019',
-          category: 'Other',
+          title: "Gym",
+          date: "04.01.2019",
+          category: "Other",
           amount: 200
         }
       ],
@@ -101,27 +145,34 @@ export default {
           label: "Date (created)",
           align: "left",
           field: "date",
-          sortable: true
+          sortable: true,
+          style: "min-width: 85px; width:9vw;"
         },
         {
           name: "title",
           label: "Title",
           field: "title",
-          sortable: true
+          sortable: true,
+          align: "left",
+          style: "min-width: 125px; width:16vw;"
         },
         {
           name: "category",
           label: "Category",
           field: "category",
           sortable: true,
-          sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+          sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
+          align: "left",
+          style: "min-width: 125px; width:10vw;"
         },
         {
           name: "amount",
           label: "Amount",
           field: "amount",
           sortable: true,
-          sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
+          sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
+          align: "center",
+          style: "min-width:55px; width:8vw; border:"
         }
       ],
       filter: "",
@@ -137,7 +188,6 @@ export default {
       },
       paginationControl: { rowsPerPage: 3, page: 1 },
       loading: false,
-      dark: true,
       selectedSecond: [{ name: "Eclair" }]
     };
   },
