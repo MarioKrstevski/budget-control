@@ -120,7 +120,9 @@
         </div>
       </q-collapsible>
     </div>
-    <div class="line-graph">Graph</div>
+    <div class="line-graph">
+      <money-chart :data="data"></money-chart>
+    </div>
 
   </q-page>
 </template>
@@ -143,6 +145,9 @@
   grid-area: todo;
 }
 .line-graph{
+  border: 1px solid black;
+  max-height: 445px;
+  overflow: hidden;
   grid-area: graph;
 }
 .grid{
@@ -178,10 +183,26 @@
 </style>
 
 <script>
+import MoneyChart from '../components/MoneyChart.js';
+
 export default {
   name: 'PageDashboard',
+  components: {
+    MoneyChart,
+  },
   data() {
     return {
+      data: {
+        labels: ['A', 'B', 'C'],
+        datasets: [{
+          label: ['One', 'Two', 'Three'],
+          backgroundColor: ['#020202', '#b2b2b2', '#c1c1c1'],
+          data: [10, 20, 30],
+        }],
+        option: {
+          height: 130,
+        },
+      },
       selection: ['one', 'two', 'three', 'four', 'five', 'six', 'seven'],
     };
   },
