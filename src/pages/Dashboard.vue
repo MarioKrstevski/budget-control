@@ -32,7 +32,7 @@
       <q-card inline class="q-ma-sm qcard">
         <q-card-title>
           Remaining Budget
-          <span slot="subtitle">Activity on February 2019</span>
+          <span slot="subtitle">For February 2019</span>
         </q-card-title>
         <q-card-main>
           <div>
@@ -185,7 +185,7 @@
 .line-graph {
   border: 1px solid black;
   max-height: 445px;
-  overflow: hidden;
+  overflow: scroll;
   grid-area: graph;
 }
 .grid {
