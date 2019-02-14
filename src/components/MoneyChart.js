@@ -14,7 +14,6 @@ export default {
           text: 'some title',
         },
       },
-      height: 300,
     };
   },
 };

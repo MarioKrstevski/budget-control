@@ -49,6 +49,7 @@
         style="width:100%; height: 100%; margin-top: 0;"
         size="md"
         label="Add Transaction"
+        @click="addTransactionModal = true"
       />
     </div>
 
@@ -128,6 +129,39 @@
     <div class="line-graph">
       <money-chart :data="data"></money-chart>
     </div>
+
+    <q-modal
+      v-model="addTransactionModal"
+      :content-css="{borderRadius: '6px',minWidth: '40vw', minHeight: '60vh'}"
+    >
+      <q-modal-layout>
+        <div class="layout-padding">
+          <q-input v-model="tTitle" float-label="Title"/>
+          <p class="caption">Category</p>
+          <q-select
+            class="category-selection"
+            v-model="defaultSelectedCategory"
+            :options="categoryOptions"
+          />
+          <q-input v-model="tNewCategory" float-label="New Category"/>
+          <q-input v-model="tAmount" float-label="Amount"/>
+          <br>
+          <q-radio color="secondary" v-model="tType" val="expense" label="Expense"/>
+          <q-radio color="secondary" v-model="tType" val="income" label="Income"/>
+          <q-collapsible group="datePicker" label="Date is set for Today (Click to change)">
+            <q-datetime-picker minimal color="orange" v-model="tDate" type="date"/>
+          </q-collapsible>
+          <br>
+          <br>
+          <q-btn
+            style="float:right"
+            color="secondary"
+            @click="addTransactionModal = false"
+            label="Save"
+          />
+        </div>
+      </q-modal-layout>
+    </q-modal>
   </q-page>
 </template>
 
@@ -184,6 +218,17 @@
   width: 100%;
   height: 100%;
 }
+.caption {
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+}
+.q-radio {
+  margin-right: 8px;
+}
+.q-collapsible{
+  margin-top: 10px;
+}
 </style>
 
 <script>
@@ -195,6 +240,35 @@ export default {
   },
   data() {
     return {
+      tTitle: '',
+      tNewCateogry: '',
+      tAmount: undefined,
+      tDate: new Date(),
+      tType: "expense",
+      addTransactionModal: false,
+      defaultSelectedCategory: "0",
+      categoryOptions: [
+        {
+          label: "Select",
+          value: "0"
+        },
+        {
+          label: "Food",
+          value: "1"
+        },
+        {
+          label: "Drinks",
+          value: "2"
+        },
+        {
+          label: "Bills",
+          value: "3"
+        },
+        {
+          label: "Other",
+          value: "4"
+        }
+      ],
       data: {
         labels: ["A", "B", "C"],
         datasets: [

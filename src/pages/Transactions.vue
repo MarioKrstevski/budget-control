@@ -97,6 +97,9 @@ export default {
   data() {
     return {
       tDate: new Date(),
+      tTitle: '',
+      tNewCateogry: '',
+      tAmount: undefined,
       tType: "expense",
       addTransactionModal: false,
       defaultSelectedMonth: "1",
