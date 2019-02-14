@@ -68,7 +68,8 @@ module.exports = function (ctx) {
         'QModal',
         'QModalLayout',
         'QInput',
-        
+        'QRadio',
+        'QDatetimePicker',
       ],
       directives: [
         'Ripple'

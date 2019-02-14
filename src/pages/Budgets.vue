@@ -19,8 +19,8 @@
                 <q-progress :percentage="progressBuffer" height="13px"/>
               </div>
               <div class="buttons">
-                <q-btn round color="primary" icon="delete"/>
-                <q-btn round color="secondary" icon="edit"/>
+                <q-btn round color="negative" icon="delete"/>
+                <q-btn round color="positive" icon="edit"/>
               </div>
             </q-card-main>
           </q-card>
@@ -38,8 +38,8 @@
                 <q-progress :percentage="progressBuffer" height="13px"/>
               </div>
               <div class="buttons">
-                <q-btn round color="primary" icon="delete"/>
-                <q-btn round color="secondary" icon="edit"/>
+                <q-btn round color="negative" icon="delete"/>
+                <q-btn round color="positive" icon="edit"/>
               </div>
             </q-card-main>
           </q-card>
@@ -57,8 +57,8 @@
                 <q-progress :percentage="progressBuffer" height="13px"/>
               </div>
               <div class="buttons">
-                <q-btn round color="primary" icon="delete"/>
-                <q-btn round color="secondary" icon="edit"/>
+                <q-btn round color="negative" icon="delete"/>
+                <q-btn round color="positive" icon="edit"/>
               </div>
             </q-card-main>
           </q-card>
@@ -76,24 +76,31 @@
                 <q-progress :percentage="progressBuffer" height="13px"/>
               </div>
               <div class="buttons">
-                <q-btn round color="primary" icon="delete"/>
-                <q-btn round color="secondary" icon="edit"/>
+                <q-btn round color="negative" icon="delete"/>
+                <q-btn round color="positive" icon="edit"/>
               </div>
             </q-card-main>
           </q-card>
         </div>
       </div>
     </div>
-    <q-modal v-model="addBudgetModal" :content-css="{borderRadius: '6px',minWidth: '40vw', minHeight: '60vh'}">
+    <q-modal
+      v-model="addBudgetModal"
+      :content-css="{borderRadius: '6px',minWidth: '40vw', minHeight: '60vh'}"
+    >
       <q-modal-layout>
         <div class="layout-padding">
-          <q-input v-model="newCategory" float-label="New Category" />
-          <q-input v-model="chosenCategory" float-label="Category"  />
-          <q-input v-model="chosenAmount" float-label="Amount" />
+          <q-input v-model="newCategory" float-label="New Category"/>
+           <p class="caption">Category</p>
+          <q-select
+            class="category-selection"
+            v-model="defaultSelectedCategory"
+            :options="categoryOptions"
+          />
+          <q-input v-model="chosenAmount" float-label="Amount"/>
           <br>
           <br>
-          <q-btn style="float:right" color="primary" @click="addBudgetModal = false" label="Save"/>
-
+          <q-btn style="float:right" color="secondary" @click="addBudgetModal = false" label="Save"/>
         </div>
       </q-modal-layout>
     </q-modal>
@@ -169,6 +176,11 @@
 .q-progress {
   border-radius: 7px;
 }
+.caption{
+  padding: 0;
+  margin: 0;
+  margin-top: 9px;
+}
 </style>
 
 <script>
@@ -176,10 +188,33 @@ export default {
   name: "PageBudgets",
   data() {
     return {
+      defaultSelectedCategory: "0",
+      categoryOptions: [
+        {
+          label: "Select",
+          value: "0"
+        },
+        {
+          label: "Food",
+          value: "1"
+        },
+        {
+          label: "Drinks",
+          value: "2"
+        },
+        {
+          label: "Bills",
+          value: "3"
+        },
+        {
+          label: "Other",
+          value: "4"
+        }
+      ],
       progressBuffer: 15,
       addBudgetModal: false,
-      newCategory:'',
-      chosenCategory:'',
+      newCategory: "",
+      chosenCategory: "",
       chosenAmount: 0
     };
   }

@@ -14,11 +14,48 @@
         <template slot="top-selection" slot-scope="props">
           <p class="table-title">Your Transactions</p>
           <div class="col"/>
-          <q-select class="month-selection" v-model="select" :options="options" /> 
-          <q-btn color="secondary" size="md" label="Add Transaction"/>
+          <q-select class="month-selection" v-model="defaultSelectedMonth" :options="monthOptions"/>
+          <q-btn
+            color="secondary"
+            size="md"
+            @click="addTransactionModal = true"
+            label="Add Transaction"
+          />
         </template>
       </q-table>
     </div>
+    <q-modal
+      v-model="addTransactionModal"
+      :content-css="{borderRadius: '6px',minWidth: '40vw', minHeight: '60vh'}"
+    >
+      <q-modal-layout>
+        <div class="layout-padding">
+          <q-input v-model="tTitle" float-label="Title"/>
+          <p class="caption">Category</p>
+          <q-select
+            class="category-selection"
+            v-model="defaultSelectedCategory"
+            :options="categoryOptions"
+          />
+          <q-input v-model="tNewCategory" float-label="New Category"/>
+          <q-input v-model="tAmount" float-label="Amount"/>
+          <br>
+          <q-radio color="secondary" v-model="tType" val="expense" label="Expense"/>
+          <q-radio color="secondary" v-model="tType" val="income" label="Income"/>
+          <q-collapsible group="datePicker" label="Date is set for Today (Click to change)">
+            <q-datetime-picker minimal color="orange" v-model="tDate" type="date"/>
+          </q-collapsible>
+          <br>
+          <br>
+          <q-btn
+            style="float:right"
+            color="secondary"
+            @click="addTransactionModal = false"
+            label="Save"
+          />
+        </div>
+      </q-modal-layout>
+    </q-modal>
   </q-page>
 </template>
 
@@ -30,17 +67,27 @@
   /* border: 1px solid black; */
   height: fit-content;
 }
-.month-selection{
+.month-selection {
   min-width: 100px;
   width: 10vw;
   margin-right: 30px;
   border: 1px solid gray;
   padding-left: 20px;
-
 }
-.table-title{
+.table-title {
   font-size: 32px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.caption {
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+}
+.q-radio {
+  margin-right: 8px;
+}
+.q-collapsible{
+  margin-top: 10px;
 }
 </style>
 
@@ -49,31 +96,57 @@ export default {
   name: "PageTransactions",
   data() {
     return {
-      select: '1',
-      options: [
+      tDate: new Date(),
+      tType: "expense",
+      addTransactionModal: false,
+      defaultSelectedMonth: "1",
+      defaultSelectedCategory: "0",
+      monthOptions: [
         {
-          label: 'All',
-          value: '0'
+          label: "All",
+          value: "0"
         },
         {
-          label: 'January',
-          value: '1'
+          label: "January",
+          value: "1"
         },
         {
-          label: 'February',
-          value: '2'
+          label: "February",
+          value: "2"
         },
         {
-          label: 'March',
-          value: '3'
+          label: "March",
+          value: "3"
         },
         {
-          label: 'April',
-          value: '4'
+          label: "April",
+          value: "4"
         },
         {
-          label: 'May',
-          value: '5'
+          label: "May",
+          value: "5"
+        }
+      ],
+      categoryOptions: [
+        {
+          label: "Select",
+          value: "0"
+        },
+        {
+          label: "Food",
+          value: "1"
+        },
+        {
+          label: "Drinks",
+          value: "2"
+        },
+        {
+          label: "Bills",
+          value: "3"
+        },
+        {
+          label: "Other",
+          value: "4"
         }
       ],
       tableData: [
