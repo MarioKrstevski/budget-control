@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import example from './module-example';
 
 Vue.use(Vuex);
-
+console.log('Example', example);
 /*
  * If not building with SSR mode, you can
  * directly export the Store instantiation

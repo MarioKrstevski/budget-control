@@ -3,7 +3,7 @@
     <div class="status-today">
       <q-card inline class="q-ma-sm qcard">
         <q-card-title>
-          Spent Today
+          Spent Today 
           <span slot="subtitle">Activity on February 13, 2019</span>
         </q-card-title>
         <q-card-main>
@@ -58,72 +58,19 @@
         <q-collapsible group="todo" label="To-Do's">
           <div>
             <q-list>
-              <q-item>
+               <q-item v-for="item in monthlyExpenses" :key="item.value">
                 <q-item-side>
-                  <q-checkbox v-model="selection" val="one" color="secondary"/>
+                  <q-checkbox v-model="paidMonthlyExpenses" :val="item.value" color="secondary"/>
                 </q-item-side>
-                <q-item-main label="Internet $500"/>
+                <q-item-main :label="`${item.label} $${item.cost}`"/>
                 <q-item-side right>
-                  <q-btn dense size="md" color="negative" label="Delete"/>
-                </q-item-side>
-              </q-item>
-              <q-item>
-                <q-item-side>
-                  <q-checkbox v-model="selection" val="two" color="secondary"/>
-                </q-item-side>
-                <q-item-main label="Water $53"/>
-                <q-item-side right>
-                  <q-btn dense size="md" color="negative" label="Delete"/>
-                </q-item-side>
-              </q-item>
-              <q-item>
-                <q-item-side>
-                  <q-checkbox v-model="selection" val="three" color="secondary"/>
-                </q-item-side>
-                <q-item-main label="Food $5500"/>
-                <q-item-side right>
-                  <q-btn dense size="md" color="negative" label="Delete"/>
-                </q-item-side>
-              </q-item>
-              <q-item>
-                <q-item-side>
-                  <q-checkbox v-model="selection" val="four" color="secondary"/>
-                </q-item-side>
-                <q-item-main label="Gym $320"/>
-                <q-item-side right>
-                  <q-btn dense size="md" color="negative" label="Delete"/>
-                </q-item-side>
-              </q-item>
-              <q-item>
-                <q-item-side>
-                  <q-checkbox v-model="selection" val="five" color="secondary"/>
-                </q-item-side>
-                <q-item-main label="Gas $125"/>
-                <q-item-side right>
-                  <q-btn dense size="md" color="negative" label="Delete"/>
-                </q-item-side>
-              </q-item>
-              <q-item>
-                <q-item-side>
-                  <q-checkbox v-model="selection" val="six" color="secondary"/>
-                </q-item-side>
-                <q-item-main label="Partying $220"/>
-                <q-item-side right>
-                  <q-btn dense size="md" color="negative" label="Delete"/>
-                </q-item-side>
-              </q-item>
-              <q-item>
-                <q-item-side>
-                  <q-checkbox v-model="selection" val="seven" color="secondary"/>
-                </q-item-side>
-                <q-item-main label="Donation $15"/>
-                <q-item-side right>
-                  <q-btn dense size="md" color="negative" label="Delete"/>
+                  <q-btn @click="updatePaidMonthlyExpenses(item.value)" dense size="md" color="negative" label="Delete"/>
                 </q-item-side>
               </q-item>
             </q-list>
           </div>
         </q-collapsible>
+        <span>{{paidMonthlyExpenses}}</span>
       </q-card>
     </div>
     <div class="line-graph">
@@ -233,6 +180,8 @@
 
 <script>
 import MoneyChart from "../components/MoneyChart.js";
+import { testGetters, testActions } from '../store/helpers'
+
 export default {
   name: "PageDashboard",
   components: {
@@ -243,6 +192,7 @@ export default {
       tTitle: '',
       tNewCateogry: '',
       tAmount: undefined,
+      tNewCategory: undefined,
       tDate: new Date(),
       tType: "expense",
       addTransactionModal: false,
@@ -282,8 +232,26 @@ export default {
           height: 130
         }
       },
-      selection: ["one", "two", "three", "four", "five", "six", "seven"]
     };
+  },
+  computed:{
+    ...testGetters,
+    printString(){
+        // return this.$store.state;
+    },
+    testString(){
+        // return this.$store.dispatch('example/testtest')
+      },
+
+      },
+  methods:{
+    ...testActions,
+    updatePaidMonthlyExpenses(item){
+      this.$store.dispatch('example/updatePaidMonthlyExpenses', item)
+    },
+    
+
+    
   }
 };
 </script>
