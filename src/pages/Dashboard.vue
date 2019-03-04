@@ -49,7 +49,7 @@
         style="width:100%; height: 100%; margin-top: 0;"
         size="md"
         label="Add Transaction"
-        @click="addTransactionModal = true"
+        @click="showTransactionModal = true"
       />
     </div>
 
@@ -78,7 +78,7 @@
     </div>
 
     <q-modal
-      v-model="addTransactionModal"
+      v-model="showTransactionModal"
       :content-css="{borderRadius: '6px',minWidth: '40vw', minHeight: '60vh'}"
     >
       <q-modal-layout>
@@ -103,7 +103,7 @@
           <q-btn
             style="float:right"
             color="secondary"
-            @click="addTransactionModal = false"
+            @click="showTransactionModal = false"
             label="Save"
           />
         </div>
@@ -180,7 +180,7 @@
 
 <script>
 import MoneyChart from "../components/MoneyChart.js";
-import { testGetters, testActions } from '../store/helpers'
+import { storeGetters, storeActions } from '../store/helpers'
 
 export default {
   name: "PageDashboard",
@@ -195,7 +195,7 @@ export default {
       tNewCategory: undefined,
       tDate: new Date(),
       tType: "expense",
-      addTransactionModal: false,
+      showTransactionModal: false,
       defaultSelectedCategory: "0",
       categoryOptions: [
         {
@@ -235,23 +235,10 @@ export default {
     };
   },
   computed:{
-    ...testGetters,
-    printString(){
-        // return this.$store.state;
+    ...storeGetters,
     },
-    testString(){
-        // return this.$store.dispatch('example/testtest')
-      },
-
-      },
   methods:{
-    ...testActions,
-    updatePaidMonthlyExpenses(item){
-      this.$store.dispatch('example/updatePaidMonthlyExpenses', item)
-    },
-    
-
-    
+    ...storeActions,
   }
 };
 </script>

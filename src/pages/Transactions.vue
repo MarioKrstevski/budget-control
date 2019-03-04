@@ -2,15 +2,15 @@
   <q-page class="flex justify-center">
     <div class="transactions">
       <q-table
-        :data="tableData"
-        :columns="columns"
+        :data="transactions"
+        :columns="tableColumns"
         selection="multiple"
-        :selected.sync="selectedSecond"
+        :selected.sync="selectedFromTable"
         row-key="title"
         color="secondary"
         title="Transactions"
         table-class="tabletrans"
-      >text
+      >
         <template slot="top-selection" slot-scope="props">
           <p class="table-title">Your Transactions</p>
           <div class="col"/>
@@ -18,14 +18,14 @@
           <q-btn
             color="secondary"
             size="md"
-            @click="addTransactionModal = true"
+            @click="showTransactionModal = true"
             label="Add Transaction"
           />
         </template>
       </q-table>
     </div>
     <q-modal
-      v-model="addTransactionModal"
+      v-model="showTransactionModal"
       :content-css="{borderRadius: '6px',minWidth: '40vw', minHeight: '60vh'}"
     >
       <q-modal-layout>
@@ -50,7 +50,7 @@
           <q-btn
             style="float:right"
             color="secondary"
-            @click="addTransactionModal = false"
+            @click="showTransactionModal = false"
             label="Save"
           />
         </div>
@@ -92,16 +92,20 @@
 </style>
 
 <script>
+import { storeGetters, storeActions } from '../store/helpers'
+
 export default {
   name: "PageTransactions",
   data() {
     return {
       tDate: new Date(),
       tTitle: '',
-      tNewCateogry: '',
+      tNewCategory: '',
       tAmount: undefined,
       tType: "expense",
-      addTransactionModal: false,
+
+      showTransactionModal: false,
+
       defaultSelectedMonth: "1",
       defaultSelectedCategory: "0",
       monthOptions: [
@@ -130,179 +134,14 @@ export default {
           value: "5"
         }
       ],
-      categoryOptions: [
-        {
-          label: "Select",
-          value: "0"
-        },
-        {
-          label: "Food",
-          value: "1"
-        },
-        {
-          label: "Drinks",
-          value: "2"
-        },
-        {
-          label: "Bills",
-          value: "3"
-        },
-        {
-          label: "Other",
-          value: "4"
-        }
-      ],
-      tableData: [
-        {
-          title: "Pizza",
-          date: "08.01.2019",
-          category: "Food",
-          amount: 55
-        },
-        {
-          title: "Milk",
-          date: "08.01.2019",
-          category: "Food",
-          amount: 24
-        },
-        {
-          title: "Chips",
-          date: "08.01.2019",
-          category: "Food",
-          amount: 10
-        },
-        {
-          title: "Burger",
-          date: "09.01.2019",
-          category: "Food",
-          amount: 85
-        },
-        {
-          title: "Skopsko",
-          date: "03.01.2019",
-          category: "Drinks",
-          amount: 23
-        },
-        {
-          title: "Coca Cola",
-          date: "18.01.2019",
-          category: "Drinks",
-          amount: 523
-        },
-        {
-          title: "Electricity",
-          date: "01.01.2019",
-          category: "Bills",
-          amount: 255
-        },
-        {
-          title: "Water",
-          date: "01.01.2019",
-          category: "Bills",
-          amount: 155
-        },
-        {
-          title: "Internet",
-          date: "01.01.2019",
-          category: "Bills",
-          amount: 35
-        },
-        {
-          title: "Gym",
-          date: "04.01.2019",
-          category: "Other",
-          amount: 200
-        }
-      ],
-      columns: [
-        {
-          name: "date",
-          required: true,
-          label: "Date (created)",
-          align: "left",
-          field: "date",
-          sortable: true,
-          style: "min-width: 85px; width:9vw;"
-        },
-        {
-          name: "title",
-          label: "Title",
-          field: "title",
-          sortable: true,
-          align: "left",
-          style: "min-width: 125px; width:16vw;"
-        },
-        {
-          name: "category",
-          label: "Category",
-          field: "category",
-          sortable: true,
-          sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
-          align: "left",
-          style: "min-width: 125px; width:10vw;"
-        },
-        {
-          name: "amount",
-          label: "Amount",
-          field: "amount",
-          sortable: true,
-          sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
-          align: "center",
-          style: "min-width:55px; width:8vw; border:"
-        }
-      ],
-      filter: "",
-      visibleColumns: ["date", "title", "category", "amount"],
-      separator: "horizontal",
-      selection: "multiple",
-      selected: [
-        // initial selection
-        { name: "Ice cream sandwich" }
-      ],
-      pagination: {
-        page: 2
-      },
-      paginationControl: { rowsPerPage: 3, page: 1 },
-      loading: false,
-      selectedSecond: [{ name: "Eclair" }]
+      selectedFromTable: [{}]
     };
   },
-  watch: {
-    "paginationControl.page"(page) {
-      this.$q.notify({
-        color: "secondary",
-        message: `Navigated to page ${page}`,
-        actions:
-          page < 4
-            ? [
-                {
-                  label: "Go to last page",
-                  handler: () => {
-                    this.paginationControl.page = 4;
-                  }
-                }
-              ]
-            : null
-      });
-    }
-  },
   computed: {
-    tableClass() {
-      if (this.dark) {
-        return "bg-black";
-      }
-    }
+    ...storeGetters,
   },
   methods: {
-    deleteRow() {
-      this.$q.notify({
-        color: "secondary",
-        icon: "delete",
-        message: `Will delete the selected row${
-          this.selectedSecond.length > 1 ? "s" : ""
-        } later, ok?`
-      });
-    }
+   ...storeActions,
   }
 };
 </script>
